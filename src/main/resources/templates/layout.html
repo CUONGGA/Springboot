@@ -1,0 +1,698 @@
+<!doctype html>
+<html
+  lang="vi"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thế Giới Di Động - Chúc Mừng Năm Mới 2024</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <style>
+      :root {
+        --tgdd-yellow: #fff100;
+        --tgdd-black: #000000;
+        --tet-red-bg: #8b0000;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        background-color: var(--tet-red-bg);
+        /* nền tết bạn đang dùng */
+        background-image: url("https://img.tgdd.vn/img-mirror/dest/Banner-TGDD-Vang-1200x300.jpg");
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      /* BANNER TẾT 2 BÊN MÀN HÌNH */
+      .tet-side {
+        position: fixed;
+        top: 100px;
+        width: 140px;
+        z-index: 1500;
+        pointer-events: none;
+      }
+      .side-left {
+        left: 0;
+      }
+      .side-right {
+        right: 0;
+      }
+      @media (max-width: 1400px) {
+        .tet-side {
+          display: none;
+        }
+      }
+
+      /* HIỆU ỨNG HOA RƠI */
+      .flower-falling {
+        position: fixed;
+        top: -50px;
+        z-index: 9999;
+        user-select: none;
+        pointer-events: none;
+        animation: fallAnimation linear forwards;
+      }
+      @keyframes fallAnimation {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(105vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* ===== HEADER TGDD STYLE ===== */
+      .top-promo {
+        background: #b30000;
+        color: #fff;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 2500;
+      }
+      .top-promo .promo-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding: 0 8px;
+      }
+      .top-promo .promo-badge {
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .top-promo .promo-cta {
+        background: #ffd400;
+        color: #111;
+        font-weight: 900;
+        padding: 6px 14px;
+        border-radius: 999px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      .header-tgdd {
+        background: var(--tgdd-yellow);
+        position: sticky;
+        top: 44px; /* dính dưới promo đỏ */
+        z-index: 2400;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+      .header-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 0;
+      }
+
+      /* Logo */
+      .tgdd-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        flex: 0 0 auto;
+      }
+      .tgdd-logo img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+      }
+      .tgdd-logo span {
+        font-weight: 900;
+        color: #111;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      /* Search */
+      .tgdd-search {
+        flex: 1;
+        max-width: 620px;
+        position: relative;
+      }
+      .tgdd-search input {
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 999px;
+        padding: 10px 44px 10px 16px;
+        outline: none;
+        background: #fff;
+      }
+      .tgdd-search i {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #222;
+      }
+
+      /* Actions */
+      .tgdd-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+      .action-link {
+        color: #111;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 800;
+      }
+      .action-link i {
+        font-size: 20px;
+      }
+
+      .location-pill {
+        border: 1px solid rgba(0, 0, 0, 0.18);
+        background: rgba(255, 255, 255, 0.45);
+        padding: 8px 12px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 900;
+      }
+
+      /* Category bar */
+      .catbar {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        background: var(--tgdd-yellow);
+      }
+      .catbar .catlist {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        padding: 8px 0;
+        overflow-x: visible;
+        scrollbar-width: thin;
+      }
+      .catbar .catitem {
+        color: #111;
+        text-decoration: none;
+        font-weight: 900;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+      .catbar .catitem:hover {
+        background: rgba(255, 255, 255, 0.55);
+      }
+      .catbar .catitem i {
+        font-size: 18px;
+      }
+
+      @media (max-width: 992px) {
+        .hide-md {
+          display: none !important;
+        }
+        .tgdd-search {
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 576px) {
+        .top-promo {
+          height: 40px;
+        }
+        .header-tgdd {
+          top: 40px;
+        }
+        .tgdd-logo span {
+          display: none;
+        }
+      }
+
+      /* KHU VỰC NỘI DUNG */
+      .main-content {
+        flex: 1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+        z-index: 10;
+      }
+
+      /* ===== MEGA MENU TGDD ===== */
+      .has-mega {
+        position: relative;
+        cursor: pointer;
+      }
+
+      /* bảng lớn */
+      .mega-menu {
+        position: absolute;
+        left: -150%;
+        top: 100%;
+        width: 1200px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+        padding: 20px;
+        display: none;
+        z-index: 3000;
+      }
+
+      /* layout grid */
+      .mega-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .mega-col h6 {
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .mega-col a:not(.mega-category) {
+        display: block;
+        text-decoration: none;
+        color: #333;
+        padding: 5px 0;
+        font-size: 14px;
+      }
+
+      .mega-col a:hover {
+        color: #288ad6;
+        transform: translateY(-3px);
+      }
+
+      .mega-category {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        padding: 10px;
+        width: 110px;
+      }
+
+      .mega-category img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 6px;
+        transition: 0.2s;
+      }
+
+      .mega-category span {
+        font-size: 13px;
+        color: #333;
+        text-align: center;
+      }
+
+      .mega-category:hover {
+        background: #f5f5f5;
+        border-radius: 8px;
+      }
+      /* ===== MEGA MENU TGDD ===== */
+
+      /* MAGIC PART ⭐ */
+      .has-mega:hover .mega-menu {
+        display: block;
+      }
+
+      footer {
+        background: #fff;
+        padding: 20px 0;
+        border-top: 5px solid var(--tgdd-yellow);
+        text-align: center;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Trang trí tết 2 bên -->
+    <div class="tet-side side-left">
+      <img
+        src="https://cdn.tgdd.vn/mwgcart/mwg-core/Content/desktop/images/tet/left-tet.png"
+        class="w-100"
+        alt="tet-left"
+      />
+    </div>
+    <div class="tet-side side-right">
+      <img
+        src="https://cdn.tgdd.vn/mwgcart/mwg-core/Content/desktop/images/tet/right-tet.png"
+        class="w-100"
+        alt="tet-right"
+      />
+    </div>
+
+    <header>
+      <!-- Dải promo đỏ trên cùng -->
+      <div class="top-promo">
+        <div class="container promo-inner">
+          <div class="promo-badge">TẾT SALE ĐẪY UP</div>
+          <div class="fw-bold d-none d-md-block">Nhận ngay mã giảm 1 TRIỆU</div>
+          <a class="promo-cta" href="#">
+            <i class="bi bi-lightning-charge-fill"></i> MUA NGAY
+          </a>
+        </div>
+      </div>
+
+      <!-- Header vàng -->
+      <div class="header-tgdd">
+        <div class="container">
+          <div class="header-row">
+            <a th:href="@{/}" class="tgdd-logo">
+              <img src="https://thegioididong.com/favicon.ico" alt="TGDD" />
+              <span>thegioididong</span>
+            </a>
+
+            <div class="tgdd-search d-none d-md-block">
+              <input type="text" placeholder="Bạn tìm gì..." />
+              <i class="bi bi-search"></i>
+            </div>
+
+            <div class="tgdd-actions">
+              <a class="action-link hide-md" href="#">
+                <i class="bi bi-person"></i> Đăng nhập
+              </a>
+
+              <a class="action-link" href="#">
+                <i class="bi bi-cart3"></i> Giỏ hàng
+              </a>
+
+              <div class="location-pill hide-md">
+                <i class="bi bi-geo-alt"></i> Hồ Chí Minh
+                <i class="bi bi-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menu danh mục vàng -->
+        <div class="catbar">
+          <div class="container">
+            <div class="catlist">
+              <a class="catitem" th:href="@{/}"
+                ><i class="bi bi-phone"></i> Điện thoại</a
+              >
+              <a class="catitem" href="#"
+                ><i class="bi bi-laptop"></i> Laptop</a
+              >
+              <!-- <a class="catitem" href="#"
+                ><i class="bi bi-headphones"></i> Phụ kiện
+                <i class="bi bi-chevron-down"></i
+              ></a> -->
+              <div class="catitem has-mega">
+                <i class="bi bi-headphones"></i>
+                Phụ kiện
+                <i class="bi bi-chevron-down"></i>
+
+                <div class="mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-col">
+                      <h6>Danh mục</h6>
+
+                      <a
+                        class="mega-category"
+                        th:each="cat : ${categories}"
+                        th:href="@{/products(categoryId=${cat.id})}"
+                      >
+                        <img th:src="${cat.image}" alt="category" />
+
+                        <span th:text="${cat.name}"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="catitem" href="#"
+                ><i class="bi bi-smartwatch"></i> Smartwatch</a
+              >
+              <a class="catitem" href="#"
+                ><i class="bi bi-watch"></i> Đồng hồ</a
+              >
+              <a class="catitem" href="#"
+                ><i class="bi bi-tablet"></i> Tablet</a
+              >
+              <a class="catitem" href="#"
+                ><i class="bi bi-arrow-repeat"></i> Máy cũ, Thu cũ
+                <i class="bi bi-chevron-down"></i
+              ></a>
+              <a class="catitem" href="#"
+                ><i class="bi bi-display"></i> Màn hình, Máy in
+                <i class="bi bi-chevron-down"></i
+              ></a>
+              <a class="catitem" href="#"
+                ><i class="bi bi-sim"></i> Sim, Thẻ cào
+                <i class="bi bi-chevron-down"></i
+              ></a>
+              <a class="catitem" href="#"
+                ><i class="bi bi-grid"></i> Dịch vụ tiện ích
+                <i class="bi bi-chevron-down"></i
+              ></a>
+
+              <a
+                class="catitem"
+                th:href="@{/product/list}"
+                style="background: rgba(255, 255, 255, 0.6)"
+              >
+                <i class="bi bi-box-seam"></i> Kho hàng
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div layout:fragment="content"></div>
+    </main>
+
+    <footer>
+      <style>
+        /* CSS bổ sung cho Footer chuyên nghiệp */
+        .footer-tgdd {
+          background: #fff;
+          padding: 30px 0;
+          border-top: 5px solid var(--tgdd-yellow);
+        }
+        .footer-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 20px;
+        }
+        .footer-col {
+          flex: 1;
+          min-width: 200px;
+        }
+        .footer-col h6 {
+          font-weight: 700;
+          margin-bottom: 15px;
+          font-size: 15px;
+        }
+        .footer-col ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        .footer-col ul li {
+          margin-bottom: 8px;
+          font-size: 13px;
+          color: #444;
+        }
+        .footer-col ul li a {
+          text-decoration: none;
+          color: #444;
+        }
+        .footer-col ul li a:hover {
+          color: #288ad6;
+        }
+
+        /* Cột Logo các tập đoàn */
+        .group-websites {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+          margin-bottom: 15px;
+        }
+        .group-websites img {
+          width: 100%;
+          height: auto;
+          border-radius: 4px;
+          border: 1px solid #eee;
+        }
+        .social-icons a {
+          font-size: 20px;
+          margin-right: 15px;
+          color: #333;
+        }
+        .cert-icons img {
+          height: 30px;
+          margin-right: 10px;
+          margin-top: 10px;
+        }
+      </style>
+
+      <footer class="footer-tgdd">
+        <div class="container footer-container text-start">
+          <div class="footer-col">
+            <h6>Tổng đài hỗ trợ</h6>
+            <ul>
+              <li>
+                Gọi mua: <b class="text-primary">1900 232 460</b> (8:00 - 21:30)
+              </li>
+              <li>
+                Khiếu nại: <b class="text-primary">1800.1062</b> (8:00 - 21:30)
+              </li>
+              <li>
+                Bảo hành: <b class="text-primary">1900 232 464</b> (8:00 -
+                21:00)
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h6>Về công ty</h6>
+            <ul>
+              <li><a href="#">Giới thiệu công ty (MWG.vn)</a></li>
+              <li><a href="#">Tuyển dụng</a></li>
+              <li><a href="#">Gửi góp ý, khiếu nại</a></li>
+              <li><a href="#">Tìm siêu thị (2.956 shop)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h6>Thông tin khác</h6>
+            <ul>
+              <li><a href="#">Tích điểm Quà tặng VIP</a></li>
+              <li><a href="#">Lịch sử mua hàng</a></li>
+              <li><a href="#">Chính sách bảo hành</a></li>
+              <li><a href="#">Chính sách đổi trả</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h6>Website cùng tập đoàn</h6>
+            <div class="group-websites">
+              <img
+                src="https://th.bing.com/th/id/OIP.CgrO5z4MKPXrWDmBUVOeggHaCB?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="TopZone"
+              />
+              <img
+                src="https://th.bing.com/th/id/OIP.kdrt84DTkN89Y47SG3MCqwHaHa?w=156&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="DMX"
+              />
+              <img
+                src="https://th.bing.com/th/id/OIP.3PUhU3pgpJ8MjWYl9NorJAHaHa?w=153&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="BHX"
+              />
+              <img
+                src="https://th.bing.com/th/id/OIP.Dh7fnW2D_YY4eX9EIv8uYQHaHa?w=148&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="AnKhang"
+              />
+              <img
+                src="https://th.bing.com/th/id/OIP.z5bYMURoN-HX7CNCHzLc5AHaCr?w=313&h=126&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="Avaji"
+              />
+              <img
+                src="https://tse2.mm.bing.net/th/id/OIP.yaEVvY2kIW9AT_h2osZAuAHaE8?w=624&h=417&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Avakids"
+              />
+            </div>
+            <div class="social-icons mb-2">
+              <a href="#"><i class="bi bi-facebook text-primary"></i></a>
+              <a href="#"><i class="bi bi-youtube text-danger"></i></a>
+              <a href="#" class="small fw-bold">Zalo TGDD</a>
+            </div>
+            <div class="cert-icons">
+              <img
+                src="https://th.bing.com/th/id/OIP.lt_7I8btBAczg1XntJbuXQHaE8?w=255&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                alt="Đã thông báo"
+              />
+              <img
+                src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-06.png?ID=9dcc2e44-8393-4a1d-8869-9b9c9f2b879a"
+                alt="DMCA"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="container border-top mt-4 pt-3 text-center">
+          <p class="small text-muted mb-0">
+            © 2024. Công ty cổ phần Thế Giới Di Động. GPMN: 123456/GP-BTTTT cấp
+            ngày 01/01/2024. <br />
+            Địa chỉ: Tòa nhà MWG, Lô T2-1.2, Đường D1, Khu Công Nghệ Cao, P. Tân
+            Phú, TP. Thủ Đức, TP. HCM.
+          </p>
+        </div>
+      </footer>
+    </footer>
+
+    <script>
+      function createFlower() {
+        const flowers = ["🌼", "🌸", "✨", "🌼", "🌸"];
+        const flower = document.createElement("div");
+        flower.classList.add("flower-falling");
+        flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+
+        flower.style.left = Math.random() * 100 + "vw";
+        const duration = Math.random() * 4 + 3; // 3s - 7s
+        flower.style.animationDuration = duration + "s";
+        flower.style.fontSize = Math.random() * 15 + 10 + "px";
+        flower.style.opacity = Math.random() * 0.6 + 0.4;
+
+        document.body.appendChild(flower);
+
+        setTimeout(() => {
+          flower.remove();
+        }, duration * 1000);
+      }
+      setInterval(createFlower, 70);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
